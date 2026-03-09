@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colégio Polivalente de Itapetinga</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html, body { width:100%; height:100%; overflow:hidden; background:#070c1a; }
+
+/*!
+ATENÇÃO.
+ * Início do projeto: 05 de Março de 2026.
+ * © 2026 Colégio Polivalente de Itapetinga.
+ * Todos os direitos reservados.
+ * A reprodução, modificação ou distribuição sem
+autorização é PROIBIDA.
+ * Desenvolvedor: 
+ */
+ 
+#site-frame {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  background: #070c1a;
+}
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #070c1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity .8s ease, transform .8s cubic-bezier(.77,0,.18,1);
+}
+
+#loader.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.04);
+}
+
+#loader-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%,
+      rgba(200,153,58,.09) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 100% at 50% 50%,
+      #070c1a 40%, #040810 100%);
+  pointer-events: none;
+}
+
+.loader-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 10;
+}
+
+.ring-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin-bottom: 36px;
+}
+
+.ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(200,153,58,.1);
+  stroke-width: 2;
+}
+
+.ring-prog {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 628;
+  stroke-dashoffset: 628;
+  transition: stroke-dashoffset .05s linear;
+  filter: drop-shadow(0 0 6px rgba(200,153,58,.7));
+}
+
+.ring-spin {
+  fill: none;
+  stroke: rgba(200,153,58,.18);
+  stroke-width: 1;
+  stroke-dasharray: 6 18;
+  animation: spin-cw 8s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+.ring-spin-rev {
+  fill: none;
+  stroke: rgba(96,165,250,.1);
+  stroke-width: 1;
+  stroke-dasharray: 4 24;
+  animation: spin-ccw 12s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes spin-cw  { to { transform: rotate(360deg); } }
+@keyframes spin-ccw { to { transform: rotate(-360deg); } }
+
+.crest-diamond {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) rotate(45deg);
+  width: 90px; height: 90px;
+  border: 1.5px solid rgba(200,153,58,.35);
+  background: rgba(200,153,58,.04);
+  animation: diamond-pulse 3s ease-in-out infinite;
+}
+
+@keyframes diamond-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(200,153,58,.15); }
+  50%      { box-shadow: 0 0 0 14px rgba(200,153,58,0); }
+}
+
+.crest-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.crest-letters {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  background: linear-gradient(135deg, #e8c06a, #c8993a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.crest-sub {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: .45rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(200,153,58,.5);
+  margin-top: 5px;
+}
+
+.cardinal {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: rgba(200,153,58,.6);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(200,153,58,.8);
+}
+.cardinal.top    { top:-3px;  left:50%; transform:translateX(-50%); }
+.cardinal.bottom { bottom:-3px; left:50%; transform:translateX(-50%); }
+.cardinal.left   { left:-3px; top:50%; transform:translateY(-50%); }
+.cardinal.right  { right:-3px; top:50%; transform:translateY(-50%); }
+
+.loader-school-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 3.5vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.3;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.loader-school-name .line {
+  display: block;
+  overflow: hidden;
+}
+
+.loader-school-name .line span {
+  display: inline-block;
+  background: linear-gradient(135deg, #fff 30%, #e8c06a 70%, #c8993a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform .7s cubic-bezier(.22,1,.36,1), opacity .5s ease;
+}
+
+.loader-school-name.revealed .line span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.loader-school-name .line:nth-child(2) span {
+  transition-delay: .12s;
+}
+
+.loader-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(.82rem, 2vw, 1.05rem);
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(200,153,58,.6);
+  letter-spacing: .1em;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .8s ease;
+  margin-bottom: 48px;
+}
+
+.loader-tagline.revealed { opacity: 1; }
+
+.progress-wrap {
+  width: clamp(220px, 40vw, 360px);
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+.progress-wrap.revealed { opacity: 1; }
+
+.progress-bar-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,.07);
+  border-radius: 2px;
+  overflow: visible;
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #c8993a, #e8c06a, #c8993a);
+  background-size: 200% 100%;
+  border-radius: 2px;
+  transition: width .08s linear;
+  position: relative;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: -1px; top: -3px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #e8c06a;
+  box-shadow: 0 0 10px 3px rgba(200,153,58,.8);
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-pct {
+  font-family: 'Cinzel', serif;
+  font-size: .72rem;
+  font-weight: 700;
+  color: #c8993a;
+  letter-spacing: .1em;
+  transition: all .05s;
+}
+
+.progress-msg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .82rem;
+  font-style: italic;
+  color: rgba(255,255,255,.3);
+  letter-spacing: .06em;
+}
+
+.deco-line {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0 20px;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+
+.deco-line.revealed { opacity: 1; }
+
+.deco-line-seg {
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200,153,58,.4));
+}
+
+.deco-line-seg.rev {
+  background: linear-gradient(to left, transparent, rgba(200,153,58,.4));
+}
+
+.deco-line i {
+  font-size: .55rem;
+  color: rgba(200,153,58,.5);
+}
+
+.badge-50 {
+  position: absolute;
+  bottom: 40px;
+  right: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: scale(.6) rotate(-12deg);
+  transition: opacity .8s ease .6s, transform .8s cubic-bezier(.22,1,.36,1) .6s;
+}
+
+.badge-50.revealed {
+  opacity: 1;
+  transform: scale(1) rotate(-8deg);
+}
+
+.badge-50-ring {
+  width: 72px; height: 72px;
+  border: 1.5px solid rgba(200,153,58,.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(200,153,58,.05);
+  animation: badge-wobble 4s ease-in-out infinite;
+}
+
+@keyframes badge-wobble {
+  0%,100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(-4deg) scale(1.05); }
+}
+
+.badge-50-num {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #c8993a;
+  line-height: 1;
+}
+
+.badge-50-txt {
+  font-family: 'Cinzel', serif;
+  font-size: .38rem;
+  letter-spacing: .2em;
+  color: rgba(200,153,58,.6);
+  text-transform: uppercase;
+}
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  display: flex;
+}
+
+.curtain-panel {
+  flex: 1;
+  background: #070c1a;
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+.curtain.closing .curtain-panel {
+  animation: curtain-close 1.1s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+.curtain-panel:nth-child(1) { animation-delay: 0s; }
+.curtain-panel:nth-child(2) { animation-delay: .04s; }
+.curtain-panel:nth-child(3) { animation-delay: .08s; }
+.curtain-panel:nth-child(4) { animation-delay: .12s; }
+.curtain-panel:nth-child(5) { animation-delay: .16s; }
+
+@keyframes curtain-close {
+  0%   { transform: scaleY(0); }
+  50%  { transform: scaleY(1); }
+  100% { transform: scaleY(0); transform-origin: top; }
+}
+
+.curtain.opening .curtain-panel {
+  animation: curtain-open .9s cubic-bezier(.77,0,.18,1) forwards;
+  transform-origin: top;
+  transform: scaleY(1);
+}
+
+@keyframes curtain-open {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<div class="curtain opening" id="curtain">
+  <div class="curtain-panel"></div>
+  <div class="curtain-panel"></div>
+  <div class="curtain-panel"></div>
+  <div class="curtain-panel"></div>
+  <div class="curtain-panel"></div>
+</div>
+
+<iframe
+  id="site-frame"
+  title="Colégio Polivalente de Itapetinga"
+  src="polivalente.html"
+  sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation"
+  loading="eager">
+</iframe>
+
+<div id="loader">
+  <canvas id="loader-canvas"></canvas>
+  <div class="bg-glow"></div>
+
+  <div class="badge-50" id="badge50">
+    <div class="badge-50-ring">
+      <span class="badge-50-num">+50</span>
+      <span class="badge-50-txt">Anos</span>
+    </div>
+  </div>
+
+  <div class="loader-center">
+
+    <div class="ring-wrap">
+      <svg class="ring-svg" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#c8993a"/>
+            <stop offset="50%"  stop-color="#e8c06a"/>
+            <stop offset="100%" stop-color="#c8993a"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-spin"     cx="100" cy="100" r="95"/>
+        <circle class="ring-spin-rev" cx="100" cy="100" r="85"/>
+        <circle class="ring-bg"   cx="100" cy="100" r="100" transform="rotate(-90 100 100)"/>
+        <circle class="ring-prog" cx="100" cy="100" r="100" id="ringProg" transform="rotate(-90 100 100)"/>
+      </svg>
+
+      <!-- o losango -->
+      <div class="crest-diamond"></div>
+
+      <!-- pontos -->
+      <div class="cardinal top"></div>
+      <div class="cardinal bottom"></div>
+      <div class="cardinal left"></div>
+      <div class="cardinal right"></div>
+
+      <!-- centro do texto -->
+      <div class="crest-center">
+        <div class="crest-letters">C.P.I</div>
+        <span class="crest-sub">Est. 1974</span>
+      </div>
+    </div>
+
+    <!-- nome do colegio -->
+    <div class="loader-school-name" id="schoolName">
+      <span class="line"><span>Colégio Polivalente</span></span>
+      <span class="line"><span>de Itapetinga</span></span>
+    </div>
+
+    <!-- linha -->
+    <div class="deco-line" id="decoLine">
+      <div class="deco-line-seg"></div>
+      <i class="fas fa-star" style="font-size:.55rem"></i>
+      <div class="deco-line-seg rev"></div>
+    </div>
+
+    <!-- tagline -->
+    <div class="loader-tagline" id="tagline">
+      Educando gerações com dedicação, tradição e carinho.
+    </div>
+
+    <!-- progresso -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-label">
+        <span class="progress-pct" id="progressPct">0%</span>
+        <span class="progress-msg" id="progressMsg">Carregando Site...</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script>
+(function(){
+  // bloqueador de clique direto
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // bloqueador de atalhos
+  document.addEventListener('keydown', e => {
+    const key = e.key;
+    const ctrl = e.ctrlKey || e.metaKey;
+    const shift = e.shiftKey;
+
+    if (ctrl && key.toLowerCase() === 'u') { e.preventDefault(); return; }
+    if (key === 'F12') { e.preventDefault(); return; }
+    if (ctrl && shift && ['i','j','c'].includes(key.toLowerCase())) { e.preventDefault(); return; }
+    if (ctrl && key.toLowerCase() === 's') { e.preventDefault(); return; }
+    if (ctrl && key.toLowerCase() === 'a') { e.preventDefault(); return; }
+  });
+
+  // Desativa seleção de texto no loader
+  document.getElementById('loader').style.userSelect = 'none';
+})();
+
+(function(){
+  const canvas = document.getElementById('loader-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+  const particles = [];
+  const N = 120;
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(a, b){ return Math.random() * (b - a) + a; }
+
+  function spawnParticle(){
+    return {
+      x: rand(0, W),
+      y: rand(0, H),
+      r: rand(.4, 1.8),
+      vx: rand(-.15, .15),
+      vy: rand(-.25, -.05),
+      alpha: rand(.2, .8),
+      fade: rand(.002, .005),
+      type: Math.random() > .7 ? 'diamond' : 'circle'
+    };
+  }
+
+  for(let i = 0; i < N; i++) particles.push(spawnParticle());
+
+  function drawDiamond(x, y, size, alpha){
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(Math.PI / 4);
+    ctx.fillStyle = `rgba(200,153,58,${alpha})`;
+    ctx.fillRect(-size, -size, size * 2, size * 2);
+    ctx.restore();
+  }
+
+  function loop(){
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= p.fade;
+      if(p.alpha <= 0 || p.y < -10){
+        particles[i] = spawnParticle();
+        particles[i].y = H + 5;
+      }
+      if(p.type === 'diamond'){
+        drawDiamond(p.x, p.y, p.r, p.alpha);
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,153,58,${p.alpha * .9})`;
+        ctx.fill();
+      }
+    });
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  loop();
+})();
+
+const MESSAGES = [
+  'Carregando site...',
+  'Bem-vindo!'
+];
+
+const progressFill = document.getElementById('progressFill');
+const progressPct  = document.getElementById('progressPct');
+const progressMsg  = document.getElementById('progressMsg');
+const ringProg     = document.getElementById('ringProg');
+const CIRCUM       = 628;
+
+let pct    = 0;
+let msgIdx = 0;
+let started = false;
+
+function revealElements(){
+  setTimeout(() => {
+    document.getElementById('schoolName').classList.add('revealed');
+  }, 200);
+  setTimeout(() => {
+    document.getElementById('decoLine').classList.add('revealed');
+  }, 600);
+  setTimeout(() => {
+    document.getElementById('tagline').classList.add('revealed');
+  }, 900);
+  setTimeout(() => {
+    document.getElementById('progressWrap').classList.add('revealed');
+    document.getElementById('badge50').classList.add('revealed');
+  }, 1100);
+}
+
+setTimeout(() => {
+  document.getElementById('curtain').classList.remove('opening');
+  revealElements();
+  started = true;
+}, 100);
+
+function advanceTo(target, duration, callback){
+  const start  = pct;
+  const delta  = target - start;
+  const begin  = performance.now();
+
+  function step(now){
+    const elapsed = now - begin;
+    const t = Math.min(elapsed / duration, 1);
+    const ease = t < .5 ? 2*t*t : -1+(4-2*t)*t;
+    pct = start + delta * ease;
+
+    const display = Math.round(pct);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent  = display + '%';
+    ringProg.style.strokeDashoffset = CIRCUM - (CIRCUM * pct / 100);
+
+    const newIdx = Math.floor((pct / 100) * (MESSAGES.length - 1));
+    if(newIdx !== msgIdx && newIdx < MESSAGES.length){
+      msgIdx = newIdx;
+      progressMsg.style.opacity = '0';
+      setTimeout(() => {
+        progressMsg.textContent = MESSAGES[msgIdx];
+        progressMsg.style.transition = 'opacity .4s';
+        progressMsg.style.opacity = '1';
+      }, 200);
+    }
+
+    if(t < 1){
+      requestAnimationFrame(step);
+    } else {
+      pct = target;
+      if(callback) callback();
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+// Carregamento do site.
+setTimeout(() => { if(started) advanceTo(35, 800); },  1200);
+setTimeout(() => { advanceTo(58, 600); }, 1400);
+setTimeout(() => { advanceTo(74, 500); }, 1800);
+setTimeout(() => { advanceTo(100, 400, finish); }, 2200);
+
+const frame   = document.getElementById('site-frame');
+const MIN_MS  = 2000;
+const startTs = Date.now();
+let iframeReady = false;
+
+frame.addEventListener('load', () => { iframeReady = true; tryFinish(); });
+
+function tryFinish(){
+  const elapsed  = Date.now() - startTs;
+  const remaining = Math.max(0, MIN_MS - elapsed);
+  setTimeout(finish, remaining);
+}
+
+setTimeout(() => { if(!iframeReady){ iframeReady = true; tryFinish(); } }, 7000);
+
+let finished = false;
+
+function finish() {
+  if (finished) return; // ← bloqueia a segunda chamada
+  finished = true;
+  
+  advanceTo(100, 400, () => {
+    progressMsg.textContent = MESSAGES[MESSAGES.length - 1];
+    progressMsg.style.opacity = '1';
+    
+    setTimeout(() => {
+      frame.style.opacity = '1';
+      frame.style.pointerEvents = 'auto';
+      
+      const curtain = document.getElementById('curtain');
+      curtain.classList.remove('opening');
+      curtain.classList.add('closing');
+      
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hide');
+        setTimeout(() => {
+          document.getElementById('loader').remove();
+          curtain.remove();
+        }, 1000);
+      }, 300);
+      
+    }, 500);
+  });
+}
+
+</script>
+</body>
+</html>
