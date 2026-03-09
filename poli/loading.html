@@ -440,6 +440,7 @@ autorização é PROIBIDA.
 <iframe
   id="site-frame"
   title="Colégio Polivalente de Itapetinga"
+  src="polivalente.html"
   sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation"
   loading="eager">
 </iframe>
@@ -525,400 +526,213 @@ autorização é PROIBIDA.
 <script>
 <script>
 (function(){
-
-  // bloquear clique direito
+  // bloqueador de clique direto
   document.addEventListener('contextmenu', e => e.preventDefault());
 
-  // bloquear atalhos comuns de inspect
+  // bloqueador de atalhos
   document.addEventListener('keydown', e => {
     const key = e.key;
     const ctrl = e.ctrlKey || e.metaKey;
     const shift = e.shiftKey;
 
-    if (ctrl && key.toLowerCase() === 'u') e.preventDefault();
-    if (key === 'F12') e.preventDefault();
-    if (ctrl && shift && ['i','j','c'].includes(key.toLowerCase())) e.preventDefault();
-    if (ctrl && key.toLowerCase() === 's') e.preventDefault();
-    if (ctrl && key.toLowerCase() === 'a') e.preventDefault();
+    if (ctrl && key.toLowerCase() === 'u') { e.preventDefault(); return; }
+    if (key === 'F12') { e.preventDefault(); return; }
+    if (ctrl && shift && ['i','j','c'].includes(key.toLowerCase())) { e.preventDefault(); return; }
+    if (ctrl && key.toLowerCase() === 's') { e.preventDefault(); return; }
+    if (ctrl && key.toLowerCase() === 'a') { e.preventDefault(); return; }
   });
 
-  // bloquear copiar
-  document.addEventListener('copy', e => e.preventDefault());
-
-  // bloquear arrastar
-  document.addEventListener('dragstart', e => e.preventDefault());
-
-  // bloquear seleção
-  const loader = document.getElementById('loader');
-  if(loader) loader.style.userSelect = 'none';
-
+  // Desativa seleção de texto no loader
+  document.getElementById('loader').style.userSelect = 'none';
 })();
 
-
-
-// ================= PARTICLES =================
-
 (function(){
-
   const canvas = document.getElementById('loader-canvas');
-  const ctx = canvas.getContext('2d');
-
-  let W,H;
-
+  const ctx    = canvas.getContext('2d');
+  let W, H;
   const particles = [];
   const N = 120;
 
   function resize(){
-    W = canvas.width = window.innerWidth;
+    W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
 
-  function rand(a,b){
-    return Math.random() * (b-a) + a;
-  }
+  function rand(a, b){ return Math.random() * (b - a) + a; }
 
   function spawnParticle(){
     return {
-      x: rand(0,W),
-      y: rand(0,H),
-      r: rand(.4,1.8),
-      vx: rand(-.15,.15),
-      vy: rand(-.25,-.05),
-      alpha: rand(.2,.8),
-      fade: rand(.002,.005),
-      type: Math.random() > .7 ? 'diamond':'circle'
-    }
+      x: rand(0, W),
+      y: rand(0, H),
+      r: rand(.4, 1.8),
+      vx: rand(-.15, .15),
+      vy: rand(-.25, -.05),
+      alpha: rand(.2, .8),
+      fade: rand(.002, .005),
+      type: Math.random() > .7 ? 'diamond' : 'circle'
+    };
   }
 
-  for(let i=0;i<N;i++) particles.push(spawnParticle());
+  for(let i = 0; i < N; i++) particles.push(spawnParticle());
 
-  function drawDiamond(x,y,size,a){
-
+  function drawDiamond(x, y, size, alpha){
     ctx.save();
-
-    ctx.translate(x,y);
-
-    ctx.rotate(Math.PI/4);
-
-    ctx.fillStyle = `rgba(200,153,58,${a})`;
-
-    ctx.fillRect(-size,-size,size*2,size*2);
-
+    ctx.translate(x, y);
+    ctx.rotate(Math.PI / 4);
+    ctx.fillStyle = `rgba(200,153,58,${alpha})`;
+    ctx.fillRect(-size, -size, size * 2, size * 2);
     ctx.restore();
-
   }
 
   function loop(){
-
-    ctx.clearRect(0,0,W,H);
-
-    particles.forEach((p,i)=>{
-
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach((p, i) => {
       p.x += p.vx;
       p.y += p.vy;
-
       p.alpha -= p.fade;
-
       if(p.alpha <= 0 || p.y < -10){
-
         particles[i] = spawnParticle();
-
         particles[i].y = H + 5;
-
       }
-
       if(p.type === 'diamond'){
-
-        drawDiamond(p.x,p.y,p.r,p.alpha);
-
-      }else{
-
+        drawDiamond(p.x, p.y, p.r, p.alpha);
+      } else {
         ctx.beginPath();
-
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-
-        ctx.fillStyle = `rgba(200,153,58,${p.alpha*.9})`;
-
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,153,58,${p.alpha * .9})`;
         ctx.fill();
-
       }
-
     });
-
     requestAnimationFrame(loop);
-
   }
 
-  window.addEventListener('resize',resize);
-
+  window.addEventListener('resize', resize);
   resize();
-
   loop();
-
 })();
 
-
-
-// ================= LOADER =================
-
 const MESSAGES = [
-'Carregando site...',
-'Bem-vindo!'
+  'Carregando site...',
+  'Bem-vindo!'
 ];
 
 const progressFill = document.getElementById('progressFill');
 const progressPct  = document.getElementById('progressPct');
 const progressMsg  = document.getElementById('progressMsg');
 const ringProg     = document.getElementById('ringProg');
+const CIRCUM       = 628;
 
-const CIRCUM = 628;
-
-let pct = 0;
+let pct    = 0;
 let msgIdx = 0;
 let started = false;
 
-
-
 function revealElements(){
-
-setTimeout(()=>{
-
-document.getElementById('schoolName').classList.add('revealed');
-
-},200);
-
-
-setTimeout(()=>{
-
-document.getElementById('decoLine').classList.add('revealed');
-
-},600);
-
-
-setTimeout(()=>{
-
-document.getElementById('tagline').classList.add('revealed');
-
-},900);
-
-
-setTimeout(()=>{
-
-document.getElementById('progressWrap').classList.add('revealed');
-
-document.getElementById('badge50').classList.add('revealed');
-
-},1100);
-
+  setTimeout(() => {
+    document.getElementById('schoolName').classList.add('revealed');
+  }, 200);
+  setTimeout(() => {
+    document.getElementById('decoLine').classList.add('revealed');
+  }, 600);
+  setTimeout(() => {
+    document.getElementById('tagline').classList.add('revealed');
+  }, 900);
+  setTimeout(() => {
+    document.getElementById('progressWrap').classList.add('revealed');
+    document.getElementById('badge50').classList.add('revealed');
+  }, 1100);
 }
 
+setTimeout(() => {
+  document.getElementById('curtain').classList.remove('opening');
+  revealElements();
+  started = true;
+}, 100);
 
+function advanceTo(target, duration, callback){
+  const start  = pct;
+  const delta  = target - start;
+  const begin  = performance.now();
 
-setTimeout(()=>{
+  function step(now){
+    const elapsed = now - begin;
+    const t = Math.min(elapsed / duration, 1);
+    const ease = t < .5 ? 2*t*t : -1+(4-2*t)*t;
+    pct = start + delta * ease;
 
-document.getElementById('curtain').classList.remove('opening');
+    const display = Math.round(pct);
+    progressFill.style.width = pct + '%';
+    progressPct.textContent  = display + '%';
+    ringProg.style.strokeDashoffset = CIRCUM - (CIRCUM * pct / 100);
 
-revealElements();
+    const newIdx = Math.floor((pct / 100) * (MESSAGES.length - 1));
+    if(newIdx !== msgIdx && newIdx < MESSAGES.length){
+      msgIdx = newIdx;
+      progressMsg.style.opacity = '0';
+      setTimeout(() => {
+        progressMsg.textContent = MESSAGES[msgIdx];
+        progressMsg.style.transition = 'opacity .4s';
+        progressMsg.style.opacity = '1';
+      }, 200);
+    }
 
-started = true;
-
-},100);
-
-
-
-function advanceTo(target,duration,callback){
-
-const start = pct;
-
-const delta = target-start;
-
-const begin = performance.now();
-
-
-function step(now){
-
-const elapsed = now-begin;
-
-const t = Math.min(elapsed/duration,1);
-
-const ease = t<.5 ? 2*t*t : -1+(4-2*t)*t;
-
-pct = start + delta*ease;
-
-
-const display = Math.round(pct);
-
-
-progressFill.style.width = pct+'%';
-
-progressPct.textContent = display+'%';
-
-
-ringProg.style.strokeDashoffset = CIRCUM-(CIRCUM*pct/100);
-
-
-const newIdx = Math.floor((pct/100)*(MESSAGES.length-1));
-
-
-if(newIdx !== msgIdx && newIdx < MESSAGES.length){
-
-msgIdx = newIdx;
-
-progressMsg.style.opacity = '0';
-
-setTimeout(()=>{
-
-progressMsg.textContent = MESSAGES[msgIdx];
-
-progressMsg.style.transition='opacity .4s';
-
-progressMsg.style.opacity='1';
-
-},200);
-
+    if(t < 1){
+      requestAnimationFrame(step);
+    } else {
+      pct = target;
+      if(callback) callback();
+    }
+  }
+  requestAnimationFrame(step);
 }
 
+// Carregamento do site.
+setTimeout(() => { if(started) advanceTo(35, 800); },  1200);
+setTimeout(() => { advanceTo(58, 600); }, 1400);
+setTimeout(() => { advanceTo(74, 500); }, 1800);
+setTimeout(() => { advanceTo(100, 400, finish); }, 2200);
 
-if(t<1){
-
-requestAnimationFrame(step);
-
-}else{
-
-pct = target;
-
-if(callback) callback();
-
-}
-
-}
-
-requestAnimationFrame(step);
-
-}
-
-
-
-// ===== carregamento fake =====
-
-setTimeout(()=>{ if(started) advanceTo(35,800) },1200);
-
-setTimeout(()=>{ advanceTo(58,600) },1400);
-
-setTimeout(()=>{ advanceTo(74,500) },1800);
-
-setTimeout(()=>{ advanceTo(100,400,finish) },2200);
-
-
-
-// ================= IFRAME =================
-
-const frame = document.getElementById('site-frame');
-
-// endereço real codificado
-const encoded = "cG9saXZhbGVudGUuaHRtbA==";
-
-const real = atob(encoded);
-
-// carrega site escondido
-setTimeout(()=>{
-
-frame.src = real;
-
-},800);
-
-
-
-const MIN_MS = 2000;
-
+const frame   = document.getElementById('site-frame');
+const MIN_MS  = 2000;
 const startTs = Date.now();
-
 let iframeReady = false;
 
-
-frame.addEventListener('load',()=>{
-
-iframeReady = true;
-
-tryFinish();
-
-});
-
+frame.addEventListener('load', () => { iframeReady = true; tryFinish(); });
 
 function tryFinish(){
-
-const elapsed = Date.now()-startTs;
-
-const remaining = Math.max(0,MIN_MS-elapsed);
-
-setTimeout(finish,remaining);
-
+  const elapsed  = Date.now() - startTs;
+  const remaining = Math.max(0, MIN_MS - elapsed);
+  setTimeout(finish, remaining);
 }
 
-
-
-setTimeout(()=>{
-
-if(!iframeReady){
-
-iframeReady = true;
-
-tryFinish();
-
-}
-
-},7000);
-
-
-
-// ================= FINAL =================
+setTimeout(() => { if(!iframeReady){ iframeReady = true; tryFinish(); } }, 7000);
 
 function finish(){
+  advanceTo(100, 400, () => {
+    progressMsg.textContent = MESSAGES[MESSAGES.length - 1];
+    progressMsg.style.opacity = '1';
 
-advanceTo(100,400,()=>{
+    setTimeout(() => {
+      frame.style.opacity      = '1';
+      frame.style.pointerEvents = 'auto';
 
-progressMsg.textContent = MESSAGES[MESSAGES.length-1];
+      const curtain = document.getElementById('curtain');
+      curtain.classList.remove('opening');
+      curtain.classList.add('closing');
 
-progressMsg.style.opacity='1';
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hide');
+        setTimeout(() => {
+          document.getElementById('loader').remove();
+          curtain.remove();
+        }, 1000);
+      }, 300);
 
-
-setTimeout(()=>{
-
-frame.style.opacity='1';
-
-frame.style.pointerEvents='auto';
-
-
-const curtain = document.getElementById('curtain');
-
-curtain.classList.remove('opening');
-
-curtain.classList.add('closing');
-
-
-setTimeout(()=>{
-
-document.getElementById('loader').classList.add('hide');
-
-setTimeout(()=>{
-
-document.getElementById('loader').remove();
-
-curtain.remove();
-
-},1000);
-
-
-},300);
-
-
-},500);
-
-});
-
+    }, 500);
+  });
 }
 
 </script>
+
 </script>
 </body>
 </html>
