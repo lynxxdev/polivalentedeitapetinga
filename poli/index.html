@@ -705,19 +705,24 @@ function tryFinish(){
 
 setTimeout(() => { if(!iframeReady){ iframeReady = true; tryFinish(); } }, 7000);
 
-function finish(){
+let finished = false;
+
+function finish() {
+  if (finished) return; // ← bloqueia a segunda chamada
+  finished = true;
+  
   advanceTo(100, 400, () => {
     progressMsg.textContent = MESSAGES[MESSAGES.length - 1];
     progressMsg.style.opacity = '1';
-
+    
     setTimeout(() => {
-      frame.style.opacity      = '1';
+      frame.style.opacity = '1';
       frame.style.pointerEvents = 'auto';
-
+      
       const curtain = document.getElementById('curtain');
       curtain.classList.remove('opening');
       curtain.classList.add('closing');
-
+      
       setTimeout(() => {
         document.getElementById('loader').classList.add('hide');
         setTimeout(() => {
@@ -725,7 +730,7 @@ function finish(){
           curtain.remove();
         }, 1000);
       }, 300);
-
+      
     }, 500);
   });
 }
