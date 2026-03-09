@@ -8,10 +8,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 
-/*  
-   DESIGN SYSTEM — COLÉGIO POLIVALENTE 50 ANOS
-   Tema: Premium Institucional · Noite & Ouro
-     */
+/*!
+ATENÇÃO!
+ * Início do projeto: 05 de Março de 2026.
+ * © 2026 Colégio Polivalente de Itapetinga.
+ * Todos os direitos reservados.
+ * A reprodução, modificação ou distribuição sem
+autorização é PROIBIDA.
+ * Desenvolvedor: https://www.instagram.com/thanzin.vx?igsh=bWptNzV6d3dmNDB6
+ */
 
 :root {
   --navy:       #070c1a;
@@ -44,17 +49,12 @@ body {
   line-height: 1.7;
 }
 
-/* ---- Scrollbar ---- */
 ::-webkit-scrollbar { width:6px; }
 ::-webkit-scrollbar-track { background:var(--navy); }
 ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
 
-/* ---- Selection ---- */
 ::selection { background:var(--gold); color:var(--navy); }
 
-/*  
-   CANVAS BACKGROUND
-     */
 #starfield {
   position:fixed;
   inset:0;
@@ -63,9 +63,6 @@ body {
   opacity:.6;
 }
 
-/*  
-   NAVIGATION
-     */
 .navbar {
   position:fixed;
   top:0; left:0; right:0;
@@ -192,9 +189,6 @@ body {
 .hamburger.open span:nth-child(2){ opacity:0; }
 .hamburger.open span:nth-child(3){ transform:rotate(-45deg) translate(7px,-6px); }
 
-/*  
-   SECTIONS SWITCHING
-     */
 .tab-section { display:none; position:relative; z-index:1; }
 .tab-section.active { display:block; animation:fadeUp .6s ease both; }
 
@@ -203,9 +197,6 @@ body {
   to   { opacity:1; transform:translateY(0); }
 }
 
-/*  
-   HERO SECTION
-     */
 .hero {
   min-height:100vh;
   display:flex;
@@ -338,7 +329,6 @@ body {
   transform:translateY(-3px);
 }
 
-/* STATS BAR */
 .hero-stats {
   display:flex;
   gap:0;
@@ -382,9 +372,6 @@ body {
   color:var(--muted);
 }
 
-/*  
-   SECTION HEADERS
-     */
 .section-wrap { max-width:1280px; margin:0 auto; padding:100px 24px; }
 
 .section-header {
@@ -453,9 +440,6 @@ body {
   font-size:.8rem;
 }
 
-/*  
-   SOBRE — HISTÓRIA
-     */
 .historia-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -569,7 +553,6 @@ body {
   margin:0;
 }
 
-/* LEGADO */
 .legado-card {
   margin-top:64px;
   padding:48px;
@@ -630,9 +613,6 @@ body {
   transform:translateY(-2px);
 }
 
-/*  
-   CURSOS
-*/
 .cursos-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -729,7 +709,6 @@ body {
   padding-top:14px;
 }
 
-  EJA Gallery */
 .eja-gallery {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -775,8 +754,6 @@ body {
 }
 
    
-   PROJETOS
-     */
 .projeto-feature {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -809,7 +786,6 @@ body {
 
 .projeto-img-area:hover img { transform:scale(1.05); }
 
-  Slider */
 .slider-container {
   position:relative;
   width:100%;
@@ -1498,9 +1474,6 @@ body {
   color:#ff6b9d;
 }
 
-/*  
-   FOOTER
-     */
 .site-footer {
   border-top:1px solid var(--card-border);
   padding:80px 48px 40px;
@@ -1622,9 +1595,6 @@ body {
   font-family:'Cormorant Garamond',serif;
 }
 
-/*  
-   LIGHTBOX MODAL
-     */
 .lightbox {
   display:none;
   position:fixed;
@@ -1666,9 +1636,6 @@ body {
   border-color:var(--gold);
 }
 
-/*  
-   SCROLL TO TOP
-     */
 .scroll-top {
   position:fixed;
   bottom:32px; right:32px;
@@ -1690,9 +1657,6 @@ body {
 .scroll-top.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
 .scroll-top:hover { transform:translateY(-4px); box-shadow:0 14px 32px rgba(200,153,58,.6); }
 
-/*  
-   RESPONSIVE
-     */
 @media (max-width:1100px) {
   .historia-grid,
   .biblio-layout,
@@ -1739,9 +1703,6 @@ body {
   .cursos-grid { grid-template-columns:1fr; }
 }
 
-/*  
-   UTILITY & ANIMATIONS
-     */
 .reveal {
   opacity:0;
   transform:translateY(30px);
@@ -1764,21 +1725,17 @@ body {
 </head>
 <body>
 
-<!-- STARFIELD CANVAS -->
 <canvas id="starfield"></canvas>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
   <img id="lightbox-img" src="" alt="Imagem ampliada">
 </div>
 
-<!-- SCROLL TO TOP -->
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fas fa-arrow-up"></i>
 </button>
 
-<!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="mainNav">
   <a class="nav-brand" onclick="openTab('sobre')">
     <div class="nav-crest">C.P.I</div>
@@ -1802,12 +1759,8 @@ body {
   </div>
 </nav>
 
-<!--  ===
-     SEÇÃO: SOBRE
-      === -->
 <section id="sobre" class="tab-section active">
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-anniversary">
       <div class="hero-line"></div>
@@ -1854,7 +1807,6 @@ body {
     </div>
   </div>
 
-  <!-- HISTÓRIA -->
   <div class="section-wrap polivalente-section" style="padding-top:40px">
 
     <div class="section-header reveal">
@@ -1901,7 +1853,6 @@ body {
       </div>
     </div>
 
-    <!-- LEGADO -->
     <div class="legado-card reveal">
       <h3><i class="fas fa-star" style="margin-right:10px;color:var(--gold)"></i>Legado e Gratidão</h3>
       <p>O colégio presta uma homenagem especial a todos os professores, gestores e funcionários que contribuíram para sua trajetória de sucesso. Em especial, àqueles cuja dedicação e amor pela educação ajudaram a construir os alicerces dessa história.</p>
@@ -1918,9 +1869,6 @@ body {
   </div>
 </section>
 
-<!--  ===
-     SEÇÃO: CURSOS
-      === -->
 <section id="cursos" class="tab-section">
   <div class="section-wrap">
     <div class="section-header reveal">
@@ -1974,7 +1922,6 @@ body {
 
     </div>
 
-    <!-- EJA GALLERY -->
     <div style="margin-top:72px" class="reveal">
       <div class="section-header" style="margin-bottom:36px">
         <div class="section-eyebrow">Galeria</div>
@@ -1996,9 +1943,6 @@ body {
   </div>
 </section>
 
-<!--  ===
-     SEÇÃO: PROJETOS
-      === -->
 <section id="projetos" class="tab-section">
   <div class="section-wrap">
 
@@ -2009,7 +1953,6 @@ body {
       <p>Transformando o aprendizado em experiências reais através da ciência, arte e tecnologia.</p>
     </div>
 
-    <!-- FEIRA DE PROFISSÕES -->
     <div class="projeto-feature reveal">
       <div class="projeto-img-area">
         <img src="https://polivisao01.simdif.com/images/public/sd_68e59cd313df4.jpg?no_cache=1759885568" alt="Feira de Profissões">
@@ -2024,7 +1967,6 @@ body {
       </div>
     </div>
 <br><br>
-    <!-- FEIRA DE CIÊNCIAS -->
     <div class="projeto-feature reverse reveal">
       <div class="projeto-img-area">
         <div class="slider-container" id="slider-ciencias">
@@ -2048,7 +1990,6 @@ body {
       </div>
     </div>
 <br><br>
-    <!-- CONSCIÊNCIA NEGRA -->
     <div class="projeto-feature reveal">
       <div class="projeto-img-area">
         <img src="https://polivisao01.simdif.com/images/public/sd_68e597cf2b4ef.jpg?no_cache=1759884293" alt="Consciência Negra">
@@ -2061,7 +2002,6 @@ body {
       </div>
     </div>
 <br><br>
-    <!-- PROJETOS ESTRUTURANTES -->
     <div class="projeto-feature reverse reveal">
       <div class="projeto-img-area">
         <div class="slider-container" id="slider-estruturantes">
@@ -2083,7 +2023,6 @@ body {
       </div>
     </div>
 
-    <!-- OUTROS PROJETOS -->
     <div class="programas-header reveal">
       <div class="section-eyebrow">Mais Iniciativas</div>
       <h2>Projetos & Programas</h2>
@@ -2150,9 +2089,6 @@ body {
   </div>
 </section>
 
-<!--  ===
-     SEÇÃO: GRÊMIO
-      === -->
 <section id="gremio" class="tab-section">
   <div class="section-wrap">
 
@@ -2183,12 +2119,10 @@ body {
         <p>Fortalecer a voz do estudante na construção coletiva de uma escola cada vez melhor.</p>
       </div>
     </div>
-
-    <!-- TIMELINE DE CHAPAS -->
+    
     <div class="chapas-timeline reveal">
       <h2 class="chapas-timeline-label">Histórico das Chapas Eleitas</h2>
 
-      <!-- NOVA GERAÇÃO -->
       <div class="chapa-item">
         <div class="chapa-dot"></div>
         <div class="chapa-card-new current-chapa">
@@ -2202,7 +2136,6 @@ body {
         </div>
       </div>
 
-      <!-- JOVENS REVOLUCIONÁRIOS -->
       <div class="chapa-item">
         <div class="chapa-dot legacy-dot"></div>
         <div class="chapa-card-new">
@@ -2218,7 +2151,6 @@ body {
 
     </div>
 
-    <!-- links dos participantes do gremio -->
     <div class="insta-links-card reveal" style="margin-top:48px">
       <h4><i class="fab fa-instagram"></i> Perfis do Grêmio nas Redes Sociais</h4>
       <div class="insta-list">
@@ -2243,9 +2175,6 @@ body {
   </div>
 </section>
 
-<!--  ===
-     biblioteca
-      === -->
 <section id="biblioteca" class="tab-section">
   <div class="section-wrap">
 
@@ -2288,9 +2217,6 @@ body {
     </div>
      </section>
 
-<!--  ===
-     contato com a escola polivalente
-      === -->
 <section id="contato" class="tab-section">
   <div class="section-wrap">
 
@@ -2303,14 +2229,10 @@ body {
 
     <div class="contato-layout reveal">
       <div class="map-frame">
-            <iframe
-        src="https://www.google.com/maps?q=Col%C3%A9gio+Polivalente+de+Itapetinga,+Av.+Francisco+Assis+Ribeiro,+Itapetinga+-+BA,+Brasil&output=embed"
-        width="100%"
-        height="400"
-        style="border:0; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.15);"
-        allowfullscreen=""
-        loading="lazy">
-    </iframe>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.7535129372976!2d-40.24625208514869!3d-15.24945498939096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7463b6a4a0b0b0f%3A0x4b0a0b0a0b0a0b0a!2sCol%C3%A9gio%20Polivalente%20de%20Itapetinga!5e0!3m2!1spt-BR!2sbr!4v1728081234567!5m2!1spt-BR!2sbr"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
 
       <div class="contato-info">
@@ -2385,9 +2307,6 @@ body {
   </div>
 </section>
 
-<!--  
-     footer
-       -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -2428,9 +2347,6 @@ body {
   </div>
 </footer>
 
-<!--  
-script
--->
 <script>
 
 (function(){
@@ -2557,7 +2473,6 @@ function initSliders(){
         dotsWrap.appendChild(dot);
       });
     }
-    // auto-advance
     setInterval(()=>nextSlide(id),4500+Math.random()*1500);
   });
 }
