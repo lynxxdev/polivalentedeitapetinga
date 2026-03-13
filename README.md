@@ -92,7 +92,7 @@ E s t .   1 9 7 4   ·   C . P . I   ·   I t a p e t i n g a ,   B a h i a
 
 <br/>
 
-**Desenvolvido com ♥ por [@thanzin.vx](https://www.instagram.com/thanzin.vx)**<br/>
+**Desenvolvido pelo [@thanzin.vx](https://www.instagram.com/thanzin.vx)**<br/>
 *para o Colégio Polivalente de Itapetinga*
 
 <br/>
