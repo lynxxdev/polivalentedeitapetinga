@@ -5,11 +5,6 @@
 
 <br/>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,5&height=140&section=header&text=C.P.I&fontSize=72&fontColor=c8993a&fontAlignY=65&animation=fadeIn&fontFamily=Cinzel"/>
-  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,5&height=140&section=header&text=C.P.I&fontSize=72&fontColor=c8993a&fontAlignY=65&animation=fadeIn&fontFamily=Cinzel"/>
-</picture>
-
 <img src="https://iili.io/qcIqfG2.md.png" alt="Typing SVG"/>
 
 <br/>
