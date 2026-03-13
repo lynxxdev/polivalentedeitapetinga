@@ -4,7 +4,8 @@
 
 
 <br/>
-img src="https://iili.io/qcIqfG2.md.png" alt="Typing SVG"/>
+
+<img src="https://iili.io/qcIqfG2.md.png" alt="Typing SVG"/>
 
 
 <picture>
