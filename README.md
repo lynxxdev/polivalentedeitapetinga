@@ -22,11 +22,6 @@
 </p>
 
 <br/>
-
-[![Status](https://img.shields.io/badge/STATUS-ONLINE-brightgreen?style=flat-square&labelColor=070c1a&color=2ecc71)](.)&nbsp;
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white&labelColor=070c1a)](.)&nbsp;
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white&labelColor=070c1a)](.)&nbsp;
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white&labelColor=070c1a)](.)&nbsp;
 [![Fundado em 1974](https://img.shields.io/badge/Fundado_em-1974-c8993a?style=flat-square&labelColor=070c1a)](.)&nbsp;
 [![+50 Anos](https://img.shields.io/badge/Mais_de-50_anos-e8c06a?style=flat-square&labelColor=070c1a)](.)
 
