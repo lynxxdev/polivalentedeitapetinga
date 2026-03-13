@@ -52,8 +52,6 @@ Este repositório contém o **site oficial da escola**, construído do zero para
 
 <br/>
 
----
-
 <br/>
 
 ## ❖ &nbsp;Contribuições
