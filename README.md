@@ -23,14 +23,10 @@
 
 <br/>
 
-[![Fundado em 1974](https://img.shields.io/badge/Fundado_em-1974-c8993a?style=flat-square&labelColor=070c1a)](.)&nbsp;
-[![+50 Anos]](.)
-
 <br/><br/>
 
 </div>
 
----
 
 <br/>
 
