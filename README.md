@@ -2,7 +2,7 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Cinzel&weight=700&size=13&letterSpacing=8px&duration=4000&pause=2000&color=C8993A&center=true&vCenter=true&width=600&lines=COLÉGIO+POLIVALENTE+DE+ITAPETINGA;FUNDADO+EM+1974;MAIS+DE+50+ANOS+DE+HISTÓRIA" alt="Typing SVG"/>
+<img src="https://iili.io/qcIqfG2.md.png" alt="Typing SVG"/>
 
 <br/>
 
