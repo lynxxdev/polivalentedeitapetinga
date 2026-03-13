@@ -48,6 +48,8 @@ Este repositório contém o **site oficial da escola**, construído do zero para
 <br/>
 
 
+<div align="center">
+
 <br/>
 
 ---
