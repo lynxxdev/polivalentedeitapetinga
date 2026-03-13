@@ -23,12 +23,7 @@
 
 <br/>
 
-[![Site Online](https://img.shields.io/badge/🌐_Site_Online-polivalentedeitapetinga.netlify.app-c8993a?style=for-the-badge&labelColor=070c1a)](https://polivalentedeitapetinga.netlify.app)
-
-<br/>
-
-[![Status](https://img.shields.io/badge/STATUS-ONLINE-brightgreen?style=flat-square&labelColor=070c1a&color=2ecc71)](https://polivalentedeitapetinga.netlify.app)&nbsp;
-[![Netlify](https://img.shields.io/badge/Netlify-Deployed-00C7B7?style=flat-square&logo=netlify&logoColor=white&labelColor=070c1a)](https://polivalentedeitapetinga.netlify.app)&nbsp;
+[![Status](https://img.shields.io/badge/STATUS-ONLINE-brightgreen?style=flat-square&labelColor=070c1a&color=2ecc71)](.)&nbsp;
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white&labelColor=070c1a)](.)&nbsp;
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white&labelColor=070c1a)](.)&nbsp;
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white&labelColor=070c1a)](.)&nbsp;
@@ -88,7 +83,6 @@ Este repositório contém o **site oficial da escola**, construído do zero para
 | <img src="https://skillicons.dev/icons?i=html" width="20"/> | **HTML5** | Estrutura semântica e acessível |
 | <img src="https://skillicons.dev/icons?i=css" width="20"/> | **CSS3** | Animações, glassmorphism e layout responsivo |
 | <img src="https://skillicons.dev/icons?i=js" width="20"/> | **JavaScript Vanilla** | Interatividade, sliders, partículas e lógica do loader |
-| <img src="https://skillicons.dev/icons?i=netlify" width="20"/> | **Netlify** | Hospedagem com deploy contínuo via Git |
 | <img src="https://skillicons.dev/icons?i=github" width="20"/> | **GitHub** | Versionamento e repositório central |
 | 🔤 | **Cinzel + Cormorant Garamond** | Tipografia serif clássica via Google Fonts |
 | 🎨 | **Font Awesome 6** | Iconografia consistente em todo o site |
@@ -151,7 +145,6 @@ Este repositório contém o **site oficial da escola**, construído do zero para
 ├── 📄 index.html                          ← Loader animado (entrada do site)
 ├── 📄 polivalente.html                    ← Site completo (carregado pelo loader)
 ├── 📄 google14688906d0de8c5c.html         ← Verificação Google Search Console
-├── 📄 _redirects                          ← Redirecionamentos Netlify
 └── 📄 README.md                           ← Este arquivo
 ```
 
@@ -184,22 +177,6 @@ Usuário acessa o site
   │  Grêmio · Biblioteca · Contato      │
   └─────────────────────────────────────┘
 ```
-
-<br/>
-
----
-
-<br/>
-
-## ❖ &nbsp;Deploy
-
-Hospedado na **Netlify** com deploy automático a cada push na branch `main`.
-
-```bash
-🌐  https://polivalentedeitapetinga.netlify.app
-```
-
-O arquivo `_redirects` garante que qualquer rota aponte corretamente para o `index.html`.
 
 <br/>
 
