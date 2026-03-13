@@ -79,11 +79,6 @@ Para reportar problemas, sugerir melhorias ou solicitar alterações, entre em c
 
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,5&height=100&section=footer&animation=fadeIn"/>
-  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,5&height=100&section=footer&animation=fadeIn"/>
-</picture>
-
 <br/>
 
 ```
